@@ -7,6 +7,12 @@
 // costanti 
 let numeri = [];
 const NUMERIMEMORY = 5;
+const bottone = document.getElementById('go');
+const arrInputUtente = [];
+let prova = document.getElementById('prova');
+prova.innerHTML = stampanumeri(numeri);
+let cancello = setTimeout(nonelist, 4000);
+
 //funzione che mi crea numeri casuali .
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -21,11 +27,7 @@ function stampanumeri() {
     } console.log(numeri)
     return numeri;
 }
-let prova = document.getElementById('prova');
-prova.innerHTML = stampanumeri(numeri);
 
-// faccio partire un timer di 30 secondi (che poi sara di 4  cosi faccio prima a vederli )
-let cancello = setTimeout(nonelist, 4000);
 // //che mi cancellerà (displaynone prova)
 function nonelist() {
     //cancello i numeri
@@ -37,35 +39,74 @@ function removenNoneList() {
     prova.classList.remove('none');
 
 }
-// //funzione che fa partire il gico e mi confronta i valori del utente 
-// let bottone = document.getElementById('go');
-// let valoreInputArray = [];
+//bottone ed event click
 
-// bottone.addEventListener('click', creaInput());
-// //funzione che prende i dati dal input e me li pusha in un array
-// function creaInput() {
-//     let valoreInput = document.getElementById("numeroUser").value;
-//      if (valoreInputArray.length < numeri.length) {
-//         valoreInputArray.push(valoreInput);
-//         console.log(valoreInputArray);
-//     }
-// }
-const bottone = document.getElementById('go');
-const arrInputUtente = [];
 
 function creaInput() {
 
     let valoreInputHTML = document.getElementById('numeroUser').value;
 
-    if(arrInputUtente.length < NUMERIMEMORY) {
+    if (arrInputUtente.length < NUMERIMEMORY) {
         arrInputUtente.push(valoreInputHTML);
         console.log(arrInputUtente);
         const stampaNumeriOutput = document.getElementById('stampaNumeri');
         stampaNumeriOutput.innerHTML = 'Hai inserito il numero: ' + arrInputUtente;
     }
-  numeroUser.value='';
+    numeroUser.value = '';
 }
 bottone.addEventListener('click', () => {
     creaInput();
-})
+});
+
+//funzione che compara i valori aggiunti con array random
+
+//sbagliata!!
+// function verificaNumeri() {
+//     let trovato = false;
+//     let contatore = 0;
+//     for (i = 0; i < arrInputUtente.length; i++) {
+//         for (j = 0; j = numeri.length; j++) {
+//             if (arrInputUtente[i] == numeri[j]) {
+//                 trovato = true;
+//                 break;
+//             } else {
+//                 trovato =false;
+//             }
+
+//         } if (trovato == false) {
+//             contatore++;
+//         }
+//     }
+//     if (trovato ==true) {
+//         let vittoria = document.getElementById('risultato')
+//         vittoria.innerHTML = "porcodio"
+//     } else {
+//         let vittoria = document.getElementById('risultato')
+//         vittoria.innerHTML = "Dioporco " + contatore;
+//     }
+// }
+// let verific = document.getElementById('verifica');
+
+// verific.addEventListener('click', () => {
+//     verificaNumeri()
+// });
+const verificaInput = document.getElementById('verifica');
+const risultato = document.getElementById('risultato');
+let contatore = 0;
+
+function verificaNumeri() {
+    for(let i = 0; i < numeri.length; i++) {
+        if(arrInputUtente.includes(numeri[i])) {
+            risultato.innerHTML = 'Bravo !! <br> Hai indovinato tutti i numeri!';
+        } else {
+            contatore++;
+            
+            risultato.innerHTML = 'Hai perso <br> non hai indovinato' + contatore + ' numeri!';
+        }
+    }
+}
+verificaInput.addEventListener('click', () => {
+    verificaNumeri();
+});
+
 
