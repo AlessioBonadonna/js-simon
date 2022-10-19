@@ -10,9 +10,11 @@ const NUMERIMEMORY = 5;
 const bottone = document.getElementById('go');
 const arrInputUtente = [];
 let prova = document.getElementById('prova');
+let titolo= document.getElementById('titolo');
+let secondoTitolo=document.getElementById("scriviinumeri")
 prova.innerHTML = stampanumeri(numeri);
 let cancello = setTimeout(nonelist, 4000);
-
+let inserisco=setTimeout(removenNoneList,4000);
 //funzione che mi crea numeri casuali .
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -32,11 +34,12 @@ function stampanumeri() {
 function nonelist() {
     //cancello i numeri
     prova.classList.add('none');
+    titolo.classList.add('none');
 
 }
 //funzione che mi rimuove il displaynone e mi rimette quello giusto;
 function removenNoneList() {
-    prova.classList.remove('none');
+    secondoTitolo.classList.remove('none');
 
 }
 //bottone ed event click
@@ -44,7 +47,7 @@ function removenNoneList() {
 
 function creaInput() {
 
-    let valoreInputHTML = document.getElementById('numeroUser').value;
+    let valoreInputHTML = parseInt(document.getElementById('numeroUser').value);
 
     if (arrInputUtente.length < NUMERIMEMORY) {
         arrInputUtente.push(valoreInputHTML);
@@ -60,7 +63,36 @@ bottone.addEventListener('click', () => {
 
 //funzione che compara i valori aggiunti con array random
 
-//sbagliata!!
+
+const verificaInput = document.getElementById('verifica');
+const risultato = document.getElementById('risultato');
+
+
+function verificaNumeri() {
+    let contatore=0;
+    for(let i = 0; i < numeri.length; i++) {
+        if(arrInputUtente.includes(numeri[i])) {
+            risultato.innerHTML = '<span class="green">Bravo !! <br> Hai indovinato tutti i numeri!</span>';
+        } else {
+            contatore++;
+            
+            risultato.innerHTML = '<span class="red">Hai perso <br> non hai indovinato ' + contatore + ' numeri! </span>';
+        }
+    }
+}
+function ricaricapagina(){
+    setTimeout(function() {
+        window.location.reload()
+      }, 5000);
+}
+verificaInput.addEventListener('click', () => {
+    verificaNumeri();
+    ricaricapagina();
+
+});
+
+
+//sbagliata
 // function verificaNumeri() {
 //     let trovato = false;
 //     let contatore = 0;
@@ -90,23 +122,3 @@ bottone.addEventListener('click', () => {
 // verific.addEventListener('click', () => {
 //     verificaNumeri()
 // });
-const verificaInput = document.getElementById('verifica');
-const risultato = document.getElementById('risultato');
-let contatore = 0;
-
-function verificaNumeri() {
-    for(let i = 0; i < numeri.length; i++) {
-        if(arrInputUtente.includes(numeri[i])) {
-            risultato.innerHTML = 'Bravo !! <br> Hai indovinato tutti i numeri!';
-        } else {
-            contatore++;
-            
-            risultato.innerHTML = 'Hai perso <br> non hai indovinato' + contatore + ' numeri!';
-        }
-    }
-}
-verificaInput.addEventListener('click', () => {
-    verificaNumeri();
-});
-
-

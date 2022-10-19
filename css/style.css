@@ -4,3 +4,15 @@
 .notnone{
     display:block;
 }
+.red{
+    color:red;
+}
+.green{
+    color:green;
+}
+header,footer{
+    height: 80px;;
+}
+main{
+    height: calc(100% - 160px);
+}
